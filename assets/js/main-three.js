@@ -205,11 +205,20 @@
     let currentIndex = 0;
     let animating = false;
 
+    /* ---- FIX MOBILE REAL VIEWPORT HEIGHT ---- */
+    function fixMobileVH() {
+      const vh = document.documentElement.clientHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
+    fixMobileVH();
+    window.addEventListener("resize", fixMobileVH);
+
+    /* ---- Scroll To Panel ---- */
     function scrollToPanel(index) {
       if (index < 0 || index >= panels.length) return;
       animating = true;
 
-      const viewportHeight = document.documentElement.clientHeight; // SAME as CSS
+      const viewportHeight = document.documentElement.clientHeight;
       const scrollPos = index * viewportHeight;
 
       gsap.to(window, {
@@ -222,7 +231,7 @@
       currentIndex = index;
     }
 
-    /* ---- OBSERVER FOR MOBILE + DESKTOP ---- */
+    /* ---- OBSERVER (MOBILE + DESKTOP) ---- */
     Observer.create({
       target: window,
       type: "touch,wheel,pointer",
@@ -256,3 +265,4 @@
     gsap.set(window, { scrollTo: 0 });
   });
 })(jQuery);
+
