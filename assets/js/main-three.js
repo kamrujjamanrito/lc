@@ -32,7 +32,7 @@
     // Use Observer to handle wheel, touch, pointer for desktop + mobile
     Observer.create({
       type: "wheel,touch,pointer",
-      wheelSpeed: -1,
+      wheelSpeed: 1,
       onUp: () => {
         if (!animating && currentIndex > 0) scrollToPanel(currentIndex - 1);
       },
