@@ -140,6 +140,61 @@
 //   });
 // })(jQuery);
 
+// (function ($) {
+//   "use strict";
+//   jQuery(function () {
+//     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText, Observer);
+//     const panels = gsap.utils.toArray(".panel");
+//     let currentIndex = 0;
+//     let animating = false;
+//     function fixMobileVH() {
+//       document.documentElement.style.setProperty(
+//         "--vh",
+//         window.innerHeight * 0.01 + "px"
+//       );
+//     }
+//     fixMobileVH();
+//     window.addEventListener("resize", fixMobileVH);
+//     function scrollToPanel(index) {
+//       if (index < 0 || index >= panels.length) return;
+//       animating = true;
+//       const viewportHeight = document.documentElement.clientHeight;
+//       const scrollPos = index * viewportHeight;
+//       gsap.to(window, {
+//         scrollTo: { y: scrollPos },
+//         duration: 1,
+//         ease: "power2.out",
+//         onComplete: () => (animating = false),
+//       });
+//       currentIndex = index;
+//     }
+//     Observer.create({
+//       target: window,
+//       type: "touch,wheel,pointer",
+//       wheelSpeed: -1,
+//       tolerance: 10,
+//       preventDefault: true,
+//       onDown: () => {
+//         if (!animating) scrollToPanel(currentIndex - 1);
+//       },
+//       onUp: () => {
+//         if (!animating) scrollToPanel(currentIndex + 1);
+//       },
+//       onWheel: (self) => {
+//         if (animating) return;
+//         if (self.deltaY > 0) {
+//           scrollToPanel(currentIndex - 1);
+//         } else {
+//           scrollToPanel(currentIndex + 1);
+//         }
+//       },
+//     });
+//     gsap.set(window, { scrollTo: 0 });
+//   });
+// })(jQuery);
+
+
+
 (function ($) {
   "use strict";
 
@@ -181,18 +236,18 @@
     Observer.create({
       target: window,
       type: "touch,wheel,pointer",
-      wheelSpeed: 1,
+      wheelSpeed: -1,
       tolerance: 10,
       preventDefault: true,
 
       // Swipe DOWN → next
       onDown: () => {
-        if (!animating) scrollToPanel(currentIndex + 1);
+        if (!animating) scrollToPanel(currentIndex - 1);
       },
 
       // Swipe UP → previous
       onUp: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
+        if (!animating) scrollToPanel(currentIndex + 1);
       },
 
       // Mouse wheel
@@ -200,9 +255,9 @@
         if (animating) return;
 
         if (self.deltaY > 0) {
-          scrollToPanel(currentIndex + 1);
-        } else {
           scrollToPanel(currentIndex - 1);
+        } else {
+          scrollToPanel(currentIndex + 1);
         }
       },
     });
@@ -211,4 +266,3 @@
     gsap.set(window, { scrollTo: 0 });
   });
 })(jQuery);
-
