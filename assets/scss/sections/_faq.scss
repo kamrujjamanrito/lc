@@ -1,0 +1,112 @@
+/* ==== 
+ --------- (5.10) faq styles start ---------
+ ==== */
+
+.faq {
+    .faq__content {
+        p {
+            &:nth-last-of-type(1) {
+                    max-width: 46.75rem;
+            }
+        }
+    }
+
+    .accordion {
+        background-color: #00000004;
+    }
+
+    .accordion-item {
+        margin-bottom: 16px;
+        background-color: #00000004;
+        border-radius: 12px;
+        border: 1px solid #00000010;
+
+        &:last-of-type {
+            margin-bottom: 0px;
+        }
+
+
+
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-color);
+            border-radius: 0px;
+            box-shadow: none;
+            font-weight: 400;
+
+            &::after {
+                color: var(--primary-color);
+                transform: rotate(0deg);
+                content: "\2212";
+            }
+        }
+
+        .accordion-button {
+            color: var(--black);
+            position: relative;
+            background-color: #00000004;
+            box-shadow: none;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            font-weight: 400;
+            text-transform: capitalize;
+
+            &::after {
+                content: "\002B";
+                width: 1.5rem;
+                min-width: 1.5rem;
+                height: 1.5rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0px;
+                background-image: none;
+                font-size: 1.3rem;
+                color: var(--black);
+            }
+        }
+    }
+
+    .accordion-item:first-of-type>.accordion-header .accordion-button.collapsed {
+        border-radius: 0px;
+    }
+
+    .accordion-item:last-of-type>.accordion-header .accordion-button.collapsed {
+        border-radius: 0px;
+    }
+
+    h5 {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-weight: 400;
+
+        button {
+            padding: 0px;
+            font-weight: 300;
+            line-height: inherit;
+            border: none;
+            outline: none;
+            box-shadow: 0px 0px 0px;
+            padding: 18px 0px;
+            border-radius: 10px;
+        }
+    }
+
+    .accordion-body {
+        padding: 24px 24px;
+        border: 0px;
+        background-color: #00000004;
+        border-top: 1px solid #00000010;
+
+        p {
+            color: var(--black);
+            font-weight: 400;
+        }
+    }
+}
+.LuckyGenerals-popup .mfp-content {
+    max-width: 800px;
+} 
+/* ==== 
+ --------- (5.10) faq styles end ---------
+ ==== */

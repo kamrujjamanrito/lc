@@ -1,0 +1,81 @@
+/* ==============
+ ========= css table of contents =========
+
+ * template name: LuckyGenerals
+ * version: 1.0
+ * description: A Creative Company for People on a Mission.
+ * author: LuckyGenerals
+ * author-url: https://www.LuckyGenerals.ae/
+
+ 01. abstracts
+     1.01 --> mixins
+     1.02 --> variables
+    
+ 02. base
+     2.01 --> reset
+     2.02 --> typography
+     2.03 --> global
+
+ 03. components
+     3.01 --> buttons
+     3.02 --> forms
+     3.03 --> preloader
+     3.04 --> scroll progress
+     3.05 --> widgets
+
+ 04. layout
+     4.01 --> header
+     4.02 --> banner
+     4.03 --> footer
+
+ 05. sections
+     5.01 --> sponsor
+     5.02 --> project
+     5.03 --> counter
+     5.04 --> services
+     5.05 --> plan
+     5.06 --> success
+     5.07 --> strategy
+     5.08 --> transform
+     5.09 --> wall
+     5.10 --> faq
+
+    ==================================
+============== */
+
+
+// abstract styles
+@use "./abstracts/mixins" as mixins;
+@use "./abstracts/variables" as variables;
+
+// base styles
+@use "./base/reset" as reset;
+@use "./base/typography" as typography;
+@use "./base/global" as global;
+
+// component styles
+@use "./components/buttons" as buttons;
+@use "./components/forms" as forms;
+@use "./components/preloader" as preloader;
+@use "./components/scroll-progress" as scrollProgress;
+@use "./components/widgets" as widgets;
+
+// layout styles
+@use "./layout/header" as header;
+@use "./layout/banner" as banner;
+@use "./layout/footer" as footer;
+
+// section styles
+@use "./sections/partner" as sponsor;
+@use "./sections/project" as project;
+@use "./sections/counter" as counter;
+@use "./sections/services" as services;
+@use "./sections/plan" as plan;
+@use "./sections/success" as success;
+@use "./sections/strategy" as strategy;
+@use "./sections/transform" as transform;
+@use "./sections/wall" as wall;
+@use "./sections/faq" as faq;
+
+// responsive styles
+@use "./responsive" as responsive;

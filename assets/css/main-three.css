@@ -1,0 +1,190 @@
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-CondensedBlack.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-CondensedBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-UltraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  src: url("/assets/fonts/HelveticaNeue-UltraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 0.833vw;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  overflow: clip;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-image-fill {
+  font-weight: 900;
+  background-image: url("../../assets/images/text-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  --x: 50%;
+  --y: 20%;
+  background-position: var(--x) var(--y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.panel-wrapper {
+  width: 100%;
+}
+
+.panel {
+  width: 100%;
+  height: 100vh; /* full screen */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  position: relative; /* normal flow */
+}
+
+.pin-spacer {
+  z-index: 999999 !important;
+}
+
+.panel-hero .title-animation {
+  font-size: 13.5rem;
+  line-height: 0.9;
+  letter-spacing: -2.5px;
+}
+.panel-hero .title-animation > div {
+  background-image: url("../../assets/images/text-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--x) var(--y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  --x: 20%;
+  --y: 30%;
+}
+.panel-hero .ig-2 > div {
+  --x: 30%;
+  --y: 90%;
+}
+.panel-hero .ig-2 > div:nth-last-of-type(1) {
+  --x: 90%;
+  --y: 85%;
+}/*# sourceMappingURL=main-three.css.map */

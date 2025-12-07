@@ -1,0 +1,96 @@
+/* ==== 
+ --------- (5.04) service styles start ---------
+ ==== */
+
+.service {
+    p {
+        max-width: 68.125rem;
+        margin-inline: auto;
+    }
+
+    .service__single {
+        padding: 30px 20px;
+        background-color: #ffffff10;
+        border: 1px solid #ffffff20;
+        border-radius: 30px;
+        height: 100%;
+
+        .thumb {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            border-radius: 12px;
+
+            img {
+                max-width: 50%;
+            }
+        }
+
+        h5 {
+            a {
+                &:hover {
+                    color: var(--primary-color);
+                }
+            }
+        }
+
+        .content {
+            p {
+                max-width: 100%;
+                margin-inline: unset;
+            }
+
+            .prc {
+                max-width: 100%;
+            }
+        }
+
+        //         .content {
+        //     p {
+        //         max-width: 354px;
+        //         margin-inline: unset;
+        //     }
+
+        //     .prc {
+        //         max-width: 371px;
+        //     }
+        // }
+    }
+
+    .content__cta {
+        .btn-animated-text {
+
+            border-color: var(--white);
+            color: var(--white);
+            padding-inline: 24px;
+
+            &:hover {
+                border-color: var(--primary-color);
+                color: var(--white);
+
+            }
+        }
+    }
+
+    .st-cta {
+        .btn-animated-text {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--white);
+
+            &:hover {
+                background-color: var(--white);
+                border-color: var(--white);
+                color: var(--black);
+            }
+        }
+    }
+}
+
+/* ==== 
+ --------- (5.04) service styles end ---------
+ ==== */

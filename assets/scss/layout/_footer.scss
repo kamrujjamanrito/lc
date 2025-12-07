@@ -1,0 +1,78 @@
+/* ==== 
+ --------- (4.03) footer styles start ---------
+ ==== */
+
+.footer {
+    background-color: var(--secondary-color);
+
+    .footer__bottom {
+        padding-block: 25px 80px;
+    }
+
+    .footer__bottom-right {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        row-gap: 24px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            row-gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        li {
+            a {
+
+                font-weight: 400;
+
+                &:hover {
+                    color: var(--primary-color);
+                }
+            }
+        }
+    }
+
+    .footer__logo {
+        img {
+            max-width: 150px;
+        }
+    }
+
+    .footer__widget {
+        height: 100%;
+
+        .mt-30 {
+            margin-top: 18px !important;
+        }
+    }
+
+    .social {
+        a {
+            width: 2.5rem;
+            min-width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.313rem;
+
+            img {
+                width: 1rem;
+            }
+        }
+    }
+
+    .drcg {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(99% - 2.9rem);
+    }
+
+}
+
+/* ==== 
+ --------- (4.03) footer styles end ---------
+ ==== */
