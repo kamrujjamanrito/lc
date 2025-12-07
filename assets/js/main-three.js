@@ -198,70 +198,60 @@
   "use strict";
 
   jQuery(function () {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText, Observer);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
     const panels = gsap.utils.toArray(".panel");
     let currentIndex = 0;
     let animating = false;
 
-    /* ---- FIX MOBILE VIEWPORT HEIGHT ---- */
-    function fixMobileVH() {
-      const vh = document.documentElement.clientHeight * 0.01;
+    // ---- FIX MOBILE HEIGHT ----
+    function setVH() {
+      const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
+      panels.forEach(panel => {
+        panel.style.height = `${window.innerHeight}px`;
+      });
     }
-    fixMobileVH();
-    window.addEventListener("resize", fixMobileVH);
+    setVH();
+    window.addEventListener("resize", setVH);
+    window.addEventListener("orientationchange", setVH);
 
-    /* ---- Scroll To Panel ---- */
+    // ---- SCROLL TO PANEL ----
     function scrollToPanel(index) {
-      if (index < 0 || index >= panels.length) return;
+      if (index < 0) index = 0;
+      if (index >= panels.length) index = panels.length - 1;
       animating = true;
 
-      const viewportHeight = document.documentElement.clientHeight;
-      const scrollPos = index * viewportHeight;
-
       gsap.to(window, {
-        scrollTo: { y: scrollPos },
-        duration: 0.9,
+        scrollTo: { y: index * window.innerHeight },
+        duration: 0.8,
         ease: "power2.out",
-        onComplete: () => (animating = false),
+        onComplete: () => (animating = false)
       });
 
       currentIndex = index;
     }
 
-    /* ---- FIXED OBSERVER (NO REVERSE EVER) ---- */
+    // ---- OBSERVER ----
     Observer.create({
       target: window,
       type: "touch,wheel",
       preventDefault: true,
-      wheelSpeed: 1,
-
-      onChangeY: (self) => {
-        if (animating) return;
-
-        // MOBILE + DESKTOP DIRECTION LOGIC
-        if (self.velocityY > 0.4) {
-          // swipe down → go next
-          scrollToPanel(currentIndex + 1);
-        } else if (self.velocityY < -0.4) {
-          // swipe up → go previous
-          scrollToPanel(currentIndex - 1);
-        }
-      },
-
       onWheel: (self) => {
         if (animating) return;
-
-        if (self.deltaY > 0) {
-          scrollToPanel(currentIndex + 1);
-        } else {
-          scrollToPanel(currentIndex - 1);
-        }
+        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
+        else scrollToPanel(currentIndex - 1);
+      },
+      onChangeY: (self) => {
+        if (animating) return;
+        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
+        else if (self.deltaY < 0) scrollToPanel(currentIndex - 1);
       }
     });
 
+    // ---- INIT ----
     gsap.set(window, { scrollTo: 0 });
   });
 })(jQuery);
+
 

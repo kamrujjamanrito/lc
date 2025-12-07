@@ -197,24 +197,31 @@ html, body {
   height: 100%;
   overflow: hidden;
   touch-action: none;
+  margin: 0;
+}
+
+.panel-wrapper {
+  width: 100%;
 }
 
 .panel {
-  width: 100% !important;
-  height: calc(var(--vh, 1vh) * 100) !important;
+  width: 100%;
+  height: 100vh; /* fallback */
+  height: calc(var(--vh, 1vh) * 100); /* mobile fix */
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   background-color: #ffffff;
   position: relative;
+  box-sizing: border-box;
 }
 
 
 
-.pin-spacer {
-    z-index: 999999 !important;
-}
+// .pin-spacer {
+//     z-index: 999999 !important;
+// }
 
 .panel-hero {
     
