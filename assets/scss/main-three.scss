@@ -199,13 +199,9 @@ html, body {
   touch-action: none;
 }
 
-.panel-wrapper {
-  width: 100%;
-}
-
 .panel {
   width: 100% !important;
-  height: calc(var(--vh, 1vh) * 100) !important; /* REAL FIX */
+  height: calc(var(--vh, 1vh) * 100) !important;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -213,6 +209,7 @@ html, body {
   background-color: #ffffff;
   position: relative;
 }
+
 
 
 .pin-spacer {

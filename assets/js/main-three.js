@@ -194,7 +194,6 @@
 // })(jQuery);
 
 
-
 (function ($) {
   "use strict";
 
@@ -205,7 +204,7 @@
     let currentIndex = 0;
     let animating = false;
 
-    /* ---- FIX MOBILE REAL VIEWPORT HEIGHT ---- */
+    /* ---- FIX MOBILE VIEWPORT HEIGHT ---- */
     function fixMobileVH() {
       const vh = document.documentElement.clientHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -223,7 +222,7 @@
 
       gsap.to(window, {
         scrollTo: { y: scrollPos },
-        duration: 1,
+        duration: 0.9,
         ease: "power2.out",
         onComplete: () => (animating = false),
       });
@@ -231,37 +230,37 @@
       currentIndex = index;
     }
 
-    /* ---- OBSERVER (MOBILE + DESKTOP) ---- */
+    /* ---- FIXED OBSERVER (NO REVERSE EVER) ---- */
     Observer.create({
       target: window,
-      type: "touch,wheel,pointer",
-      wheelSpeed: -1,
-      tolerance: 10,
+      type: "touch,wheel",
       preventDefault: true,
+      wheelSpeed: 1,
 
-      // Swipe DOWN → next
-      onDown: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
+      onChangeY: (self) => {
+        if (animating) return;
+
+        // MOBILE + DESKTOP DIRECTION LOGIC
+        if (self.velocityY > 0.4) {
+          // swipe down → go next
+          scrollToPanel(currentIndex + 1);
+        } else if (self.velocityY < -0.4) {
+          // swipe up → go previous
+          scrollToPanel(currentIndex - 1);
+        }
       },
 
-      // Swipe UP → previous
-      onUp: () => {
-        if (!animating) scrollToPanel(currentIndex + 1);
-      },
-
-      // Mouse wheel
       onWheel: (self) => {
         if (animating) return;
 
         if (self.deltaY > 0) {
-          scrollToPanel(currentIndex - 1);
-        } else {
           scrollToPanel(currentIndex + 1);
+        } else {
+          scrollToPanel(currentIndex - 1);
         }
-      },
+      }
     });
 
-    /* ---- INIT ---- */
     gsap.set(window, { scrollTo: 0 });
   });
 })(jQuery);
