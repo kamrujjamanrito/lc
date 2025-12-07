@@ -2,10 +2,11 @@
   "use strict";
 
   jQuery(function () {
-        gsap.registerPlugin(
+    gsap.registerPlugin(
       ScrollTrigger,
       ScrollToPlugin,
-      SplitText
+      SplitText,
+      Observer
     );
 
     const panels = $(".panel");
@@ -19,7 +20,7 @@
       const scrollPos = index * window.innerHeight;
 
       gsap.to(window, {
-        scrollTo: { y: scrollPos }, // now works
+        scrollTo: { y: scrollPos },
         duration: 1,
         ease: "power1.inOut",
         onComplete: () => (animating = false),
@@ -28,23 +29,25 @@
       currentIndex = index;
     }
 
-    // Listen to wheel events
-    $(window).on("wheel", function (e) {
-      if (animating) return;
-
-      if (e.originalEvent.deltaY > 0 && currentIndex < panels.length - 1) {
-        scrollToPanel(currentIndex + 1);
-      } else if (e.originalEvent.deltaY < 0 && currentIndex > 0) {
-        scrollToPanel(currentIndex - 1);
-      }
+    // Use Observer to handle wheel, touch, pointer for desktop + mobile
+    Observer.create({
+      type: "wheel,touch,pointer",
+      wheelSpeed: -1,
+      onUp: () => {
+        if (!animating && currentIndex > 0) scrollToPanel(currentIndex - 1);
+      },
+      onDown: () => {
+        if (!animating && currentIndex < panels.length - 1) scrollToPanel(currentIndex + 1);
+      },
+      tolerance: 10,
+      preventDefault: true, // prevents default browser scroll
     });
 
     // Initialize first panel
     gsap.set(window, { scrollTo: 0 });
 
-
-
-        if ($(".panel-hero").length > 0) {
+    // ===== Your hero panel animation =====
+    if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
       let offset = window.innerHeight * 0.25;
@@ -105,7 +108,6 @@
         });
 
         let tl = gsap.timeline({});
-
         tl.to(firstSplit.words, {
           opacity: 1,
           scale: 1,
@@ -125,6 +127,5 @@
         );
       });
     }
-
   });
 })(jQuery);
