@@ -149,8 +149,8 @@ p {
 }
 
 .panel {
-  width: 100%;
-  height: 100vh; /* full screen */
+  width: 100% !important;
+  height: 100vh !important; /* full screen */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -164,9 +164,12 @@ p {
 }
 
 .panel-hero .title-animation {
+  opacity: 0;
+  visibility: hidden;
   font-size: 13.5rem;
   line-height: 0.9;
   letter-spacing: -2.5px;
+  width: 100%;
 }
 .panel-hero .title-animation > div {
   background-image: url("../../assets/images/text-bg.jpg");
