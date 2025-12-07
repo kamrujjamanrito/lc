@@ -185,11 +185,11 @@
       preventDefault: true,
 
       onDown: () => {
-        if (!animating) scrollToPanel(currentIndex + 1);
+        if (!animating) scrollToPanel(currentIndex - 1);
       },
 
       onUp: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
+        if (!animating) scrollToPanel(currentIndex + 1);
       },
 
       onWheel: (self) => {
