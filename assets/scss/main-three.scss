@@ -117,26 +117,26 @@
     padding: 0;
 }
 
-// html {
-//     font-size: 0.833vw;
-// }
-
-// body {
-//     font-family: 'Helvetica Neue', Arial, sans-serif;
-//     overflow: clip;
-//     background-color: #ffffff;
-//     color: #000000;
-// }
-
-html, body {
-  height: 100%;
-  font-size: 0.833vw;
-  overflow: hidden;
-  touch-action: none;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #ffffff;
-  color: #000000;
+html {
+    font-size: 0.833vw;
 }
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    overflow: clip;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+// html, body {
+//   height: 100%;
+//   font-size: 0.833vw;
+//   overflow: hidden;
+//   touch-action: none;
+//   font-family: 'Helvetica Neue', Arial, sans-serif;
+//   background-color: #ffffff;
+//   color: #000000;
+// }
 
 h1,
 h2,
@@ -171,8 +171,8 @@ p {
 }
 
 .panel {
-  width: 100%;
-  height: 100vh; /* full screen */
+  width: 100% !important;
+  height: 100vh !important; /* full screen */
   display: flex;
   justify-content: center;
   flex-direction: column;
