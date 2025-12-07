@@ -160,13 +160,17 @@
     fixMobileVH();
     window.addEventListener("resize", fixMobileVH);
 
-    /* ---- Scroll To Panel ---- */
+    /* ---- Scroll To Panel (FIXED MOBILE HEIGHT) ---- */
     function scrollToPanel(index) {
       if (index < 0 || index >= panels.length) return;
       animating = true;
 
+      // FIXED: use stable mobile viewport height
+      const viewportHeight = document.documentElement.clientHeight;
+      const scrollPos = index * viewportHeight;
+
       gsap.to(window, {
-        scrollTo: { y: index * window.innerHeight },
+        scrollTo: { y: scrollPos },
         duration: 1,
         ease: "power2.out",
         onComplete: () => (animating = false),
@@ -175,27 +179,33 @@
       currentIndex = index;
     }
 
-    /* ---- OBSERVER (FIXED MOBILE TOUCH) ---- */
-
+    /* ---- OBSERVER (MOBILE + DESKTOP) ---- */
     Observer.create({
-      target: window, // VERY IMPORTANT
+      target: window,
       type: "touch,wheel,pointer",
       wheelSpeed: 1,
       tolerance: 10,
       preventDefault: true,
 
+      // Swipe DOWN (finger goes down → move to NEXT)
       onDown: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
-      },
-
-      onUp: () => {
         if (!animating) scrollToPanel(currentIndex + 1);
       },
 
+      // Swipe UP (finger goes up → move to PREVIOUS)
+      onUp: () => {
+        if (!animating) scrollToPanel(currentIndex - 1);
+      },
+
+      // Mouse wheel
       onWheel: (self) => {
         if (animating) return;
-        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
-        else scrollToPanel(currentIndex - 1);
+
+        if (self.deltaY > 0) {
+          scrollToPanel(currentIndex + 1);
+        } else {
+          scrollToPanel(currentIndex - 1);
+        }
       },
     });
 
