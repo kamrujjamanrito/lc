@@ -199,6 +199,7 @@
   jQuery(function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
+    // smooth scroll full section
     if ($(".panel-wrapper").length > 0) {
       const panels = gsap.utils.toArray(".panel");
       let currentIndex = 0;
@@ -247,6 +248,89 @@
       });
 
       gsap.set(window, { scrollTo: 0 });
+    }
+
+    // pannel hero
+    if ($(".panel-hero").length > 0) {
+      const firstTitle = document.querySelector(".first-title");
+      const secondTitle = document.querySelector(".second-title");
+      let offset = window.innerHeight * 0.25;
+      let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+
+      ScrollTrigger.create({
+        trigger: ".panel-hero",
+        start: `top -${offset}px`,
+        endTrigger: ".df",
+        end: "top top",
+        pin: firstTitle,
+        pinSpacing: false,
+        scrub: 1.5,
+        onEnter: () => {
+          gsap.to(firstTitle, {
+            scale: targetScale,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(secondTitle, {
+            scale: 0,
+            opacity: 0,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(firstTitle, {
+            scale: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(secondTitle, {
+            scale: 1,
+            opacity: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        markers: false,
+      });
+
+      document.fonts.ready.then(() => {
+        let firstSplit = new SplitText(firstTitle, { type: "words" });
+        let secondSplit = new SplitText(secondTitle, { type: "words" });
+
+        gsap.set([firstTitle, secondTitle], {
+          opacity: 1,
+          visibility: "visible",
+        });
+        gsap.set([firstSplit.words, secondSplit.words], {
+          opacity: 0,
+          scale: 1,
+        });
+
+        let tl = gsap.timeline({});
+
+        tl.to(firstSplit.words, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.2,
+        }).to(
+          secondSplit.words,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.2,
+          },
+          "-=0.2"
+        );
+      });
     }
   });
 })(jQuery);
