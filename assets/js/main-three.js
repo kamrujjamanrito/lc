@@ -254,7 +254,11 @@
     if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
-      let offset = window.innerHeight * 0.25;
+      // let offset = window.innerHeight * 0.25;
+let offset = window.innerWidth < 992 
+    ? window.innerHeight * 0.1  
+    : window.innerHeight * 0.25; 
+
       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
 
       ScrollTrigger.create({
