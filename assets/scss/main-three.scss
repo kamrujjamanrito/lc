@@ -117,13 +117,23 @@
     padding: 0;
 }
 
-html {
-    font-size: 0.833vw;
-}
+// html {
+//     font-size: 0.833vw;
+// }
 
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    overflow: clip;
+// body {
+//     font-family: 'Helvetica Neue', Arial, sans-serif;
+//     overflow: clip;
+//     background-color: #ffffff;
+//     color: #000000;
+// }
+
+html, body {
+  height: 100%;
+  font-size: 0.833vw;
+  overflow: hidden; /* disable native scrolling */
+  touch-action: none; /* capture swipes */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #ffffff;
     color: #000000;
 }
@@ -173,7 +183,8 @@ p {
 
 .panel {
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+//   height: calc(var(--vh, 1vh) * 100);
+height: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;

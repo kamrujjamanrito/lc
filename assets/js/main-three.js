@@ -175,31 +175,27 @@
       currentIndex = index;
     }
 
-    /* ---- OBSERVER FIX FOR MOBILE ---- */
+    /* ---- OBSERVER (FIXED MOBILE TOUCH) ---- */
+
     Observer.create({
-      type: "wheel,touch",
-      tolerance: 20, 
+      target: window, // VERY IMPORTANT
+      type: "touch,wheel,pointer",
+      wheelSpeed: 1,
+      tolerance: 10,
       preventDefault: true,
-      wheelSpeed: 1.1,
+
+      onDown: () => {
+        if (!animating) scrollToPanel(currentIndex + 1);
+      },
+
+      onUp: () => {
+        if (!animating) scrollToPanel(currentIndex - 1);
+      },
 
       onWheel: (self) => {
         if (animating) return;
-
-        if (self.deltaY > 0) {
-          scrollToPanel(currentIndex + 1);
-        } else {
-          scrollToPanel(currentIndex - 1);
-        }
-      },
-
-      onTouchEnd: (self) => {
-        if (animating) return;
-
-        if (self.velocityY < -0.2) {
-          scrollToPanel(currentIndex + 1);
-        } else if (self.velocityY > 0.2) {
-          scrollToPanel(currentIndex - 1);
-        }
+        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
+        else scrollToPanel(currentIndex - 1);
       },
     });
 
