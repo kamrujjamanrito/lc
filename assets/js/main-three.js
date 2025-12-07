@@ -12,6 +12,7 @@
     const panels = $(".panel");
     let currentIndex = 0;
     let animating = false;
+    let scrollDelta = 0; // accumulate small scrolls
 
     function scrollToPanel(index) {
       if (index < 0 || index >= panels.length) return;
@@ -27,26 +28,35 @@
       });
 
       currentIndex = index;
+      scrollDelta = 0; // reset delta on new panel
     }
 
-    // Use Observer to handle wheel, touch, pointer for desktop + mobile
+    // Observer handles wheel, touch, pointer
     Observer.create({
       type: "wheel,touch,pointer",
-      wheelSpeed: 1,
-      onUp: () => {
-        if (!animating && currentIndex > 0) scrollToPanel(currentIndex - 1);
+      wheelSpeed: 0.5, // smaller = slower reaction to tiny wheel
+      onChangeY: (self) => {
+        if (animating) return;
+
+        scrollDelta += self.deltaY; // accumulate delta
+        const threshold = window.innerHeight * 0.25; // scroll threshold: 25% of viewport
+
+        if (scrollDelta >= threshold && currentIndex < panels.length - 1) {
+          scrollToPanel(currentIndex + 1);
+        } else if (scrollDelta <= -threshold && currentIndex > 0) {
+          scrollToPanel(currentIndex - 1);
+        }
       },
-      onDown: () => {
-        if (!animating && currentIndex < panels.length - 1) scrollToPanel(currentIndex + 1);
-      },
-      tolerance: 10,
-      preventDefault: true, // prevents default browser scroll
+      tolerance: 5,
+      preventDefault: true,
+      dragMinimum: 10, // minimum swipe distance on touch
+      maxTouches: 1, // only 1 finger scroll
     });
 
     // Initialize first panel
     gsap.set(window, { scrollTo: 0 });
 
-    // ===== Your hero panel animation =====
+    // ===== Hero panel animation =====
     if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
