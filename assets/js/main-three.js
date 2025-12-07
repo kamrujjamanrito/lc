@@ -183,18 +183,18 @@
     Observer.create({
       target: window,
       type: "touch,wheel,pointer",
-      wheelSpeed: 1,
+      wheelSpeed: -1,
       tolerance: 10,
       preventDefault: true,
 
       // Swipe DOWN (finger goes down → move to NEXT)
       onDown: () => {
-        if (!animating) scrollToPanel(currentIndex + 1);
+        if (!animating) scrollToPanel(currentIndex - 1);
       },
 
       // Swipe UP (finger goes up → move to PREVIOUS)
       onUp: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
+        if (!animating) scrollToPanel(currentIndex + 1);
       },
 
       // Mouse wheel
@@ -202,9 +202,9 @@
         if (animating) return;
 
         if (self.deltaY > 0) {
-          scrollToPanel(currentIndex + 1);
-        } else {
           scrollToPanel(currentIndex - 1);
+        } else {
+          scrollToPanel(currentIndex + 1);
         }
       },
     });
