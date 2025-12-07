@@ -193,66 +193,60 @@
 //   });
 // })(jQuery);
 
-
 (function ($) {
   "use strict";
 
   jQuery(function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
-    const panels = gsap.utils.toArray(".panel");
-    let currentIndex = 0;
-    let animating = false;
+    if ($(".panel-wrapper").length > 0) {
+      const panels = gsap.utils.toArray(".panel");
+      let currentIndex = 0;
+      let animating = false;
 
-    // ---- FIX MOBILE HEIGHT ----
-    function setVH() {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-      panels.forEach(panel => {
-        panel.style.height = `${window.innerHeight}px`;
-      });
-    }
-    setVH();
-    window.addEventListener("resize", setVH);
-    window.addEventListener("orientationchange", setVH);
-
-    // ---- SCROLL TO PANEL ----
-    function scrollToPanel(index) {
-      if (index < 0) index = 0;
-      if (index >= panels.length) index = panels.length - 1;
-      animating = true;
-
-      gsap.to(window, {
-        scrollTo: { y: index * window.innerHeight },
-        duration: 0.8,
-        ease: "power2.out",
-        onComplete: () => (animating = false)
-      });
-
-      currentIndex = index;
-    }
-
-    // ---- OBSERVER ----
-    Observer.create({
-      target: window,
-      type: "touch,wheel",
-      wheelSpeed: -1,
-      preventDefault: true,
-      onWheel: (self) => {
-        if (animating) return;
-        if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
-        else scrollToPanel(currentIndex + 1);
-      },
-      onChangeY: (self) => {
-        if (animating) return;
-        if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
-        else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
+      function setVH() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+        panels.forEach((panel) => {
+          panel.style.height = `${window.innerHeight}px`;
+        });
       }
-    });
+      setVH();
+      window.addEventListener("resize", setVH);
+      window.addEventListener("orientationchange", setVH);
+      function scrollToPanel(index) {
+        if (index < 0) index = 0;
+        if (index >= panels.length) index = panels.length - 1;
+        animating = true;
 
-    // ---- INIT ----
-    gsap.set(window, { scrollTo: 0 });
+        gsap.to(window, {
+          scrollTo: { y: index * window.innerHeight },
+          duration: 1.4,
+          ease: "power2.out",
+          onComplete: () => (animating = false),
+        });
+
+        currentIndex = index;
+      }
+
+      Observer.create({
+        target: window,
+        type: "touch,wheel",
+        wheelSpeed: -1,
+        preventDefault: true,
+        onWheel: (self) => {
+          if (animating) return;
+          if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+          else scrollToPanel(currentIndex + 1);
+        },
+        onChangeY: (self) => {
+          if (animating) return;
+          if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+          else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
+        },
+      });
+
+      gsap.set(window, { scrollTo: 0 });
+    }
   });
 })(jQuery);
-
-
