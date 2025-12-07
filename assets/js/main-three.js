@@ -150,23 +150,21 @@
     let currentIndex = 0;
     let animating = false;
 
-    /* ---- FIX MOBILE 100vh BUG ---- */
+    /* ---- FIX MOBILE TRUE VIEWPORT HEIGHT ---- */
     function fixMobileVH() {
-      document.documentElement.style.setProperty(
-        "--vh",
-        window.innerHeight * 0.01 + "px"
-      );
+      // IMPORTANT: clientHeight is stable and doesn’t change on scroll
+      const vh = document.documentElement.clientHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
     }
     fixMobileVH();
     window.addEventListener("resize", fixMobileVH);
 
-    /* ---- Scroll To Panel (FIXED MOBILE HEIGHT) ---- */
+    /* ---- Scroll To Panel (MATCHES CSS HEIGHT EXACTLY) ---- */
     function scrollToPanel(index) {
       if (index < 0 || index >= panels.length) return;
       animating = true;
 
-      // FIXED: use stable mobile viewport height
-      const viewportHeight = document.documentElement.clientHeight;
+      const viewportHeight = document.documentElement.clientHeight; // SAME as CSS
       const scrollPos = index * viewportHeight;
 
       gsap.to(window, {
@@ -179,22 +177,22 @@
       currentIndex = index;
     }
 
-    /* ---- OBSERVER (MOBILE + DESKTOP) ---- */
+    /* ---- OBSERVER FOR MOBILE + DESKTOP ---- */
     Observer.create({
       target: window,
       type: "touch,wheel,pointer",
-      wheelSpeed: -1,
+      wheelSpeed: 1,
       tolerance: 10,
       preventDefault: true,
 
-      // Swipe DOWN (finger goes down → move to NEXT)
+      // Swipe DOWN → next
       onDown: () => {
-        if (!animating) scrollToPanel(currentIndex - 1);
+        if (!animating) scrollToPanel(currentIndex + 1);
       },
 
-      // Swipe UP (finger goes up → move to PREVIOUS)
+      // Swipe UP → previous
       onUp: () => {
-        if (!animating) scrollToPanel(currentIndex + 1);
+        if (!animating) scrollToPanel(currentIndex - 1);
       },
 
       // Mouse wheel
@@ -202,9 +200,9 @@
         if (animating) return;
 
         if (self.deltaY > 0) {
-          scrollToPanel(currentIndex - 1);
-        } else {
           scrollToPanel(currentIndex + 1);
+        } else {
+          scrollToPanel(currentIndex - 1);
         }
       },
     });
@@ -213,3 +211,4 @@
     gsap.set(window, { scrollTo: 0 });
   });
 })(jQuery);
+

@@ -131,11 +131,11 @@
 html, body {
   height: 100%;
   font-size: 0.833vw;
-  overflow: hidden; /* disable native scrolling */
-  touch-action: none; /* capture swipes */
+  overflow: hidden;
+  touch-action: none;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 h1,
@@ -183,8 +183,7 @@ p {
 
 .panel {
   width: 100%;
-//   height: calc(var(--vh, 1vh) * 100);
-height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 100); /* uses FIXED viewport height */
   display: flex;
   justify-content: center;
   align-items: center;
