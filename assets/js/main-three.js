@@ -236,16 +236,17 @@
     Observer.create({
       target: window,
       type: "touch,wheel",
+      wheelSpeed: -1,
       preventDefault: true,
       onWheel: (self) => {
         if (animating) return;
-        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
-        else scrollToPanel(currentIndex - 1);
+        if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+        else scrollToPanel(currentIndex + 1);
       },
       onChangeY: (self) => {
         if (animating) return;
-        if (self.deltaY > 0) scrollToPanel(currentIndex + 1);
-        else if (self.deltaY < 0) scrollToPanel(currentIndex - 1);
+        if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+        else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
       }
     });
 
