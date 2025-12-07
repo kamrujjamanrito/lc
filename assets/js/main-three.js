@@ -206,13 +206,13 @@
     let animating = false;
 
     /* ---- FIX MOBILE TRUE VIEWPORT HEIGHT ---- */
-    function fixMobileVH() {
-      // IMPORTANT: clientHeight is stable and doesn’t change on scroll
-      const vh = document.documentElement.clientHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    }
-    fixMobileVH();
-    window.addEventListener("resize", fixMobileVH);
+    // function fixMobileVH() {
+    //   // IMPORTANT: clientHeight is stable and doesn’t change on scroll
+    //   const vh = document.documentElement.clientHeight * 0.01;
+    //   document.documentElement.style.setProperty("--vh", `${vh}px`);
+    // }
+    // fixMobileVH();
+    // window.addEventListener("resize", fixMobileVH);
 
     /* ---- Scroll To Panel (MATCHES CSS HEIGHT EXACTLY) ---- */
     function scrollToPanel(index) {
