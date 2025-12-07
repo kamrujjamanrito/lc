@@ -159,6 +159,13 @@ p {
   position: relative; /* normal flow */
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  margin: 0;
+}
+
 .pin-spacer {
   z-index: 999999 !important;
 }
