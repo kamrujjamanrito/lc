@@ -251,115 +251,116 @@
     }
 
     // pannel hero
-// if ($(".panel-hero").length > 0) {
-//   const container = document.querySelector(".panel__inner"); // wrapper for both headings
-//   const firstTitle = container.querySelector(".first-title");
-//   const secondTitle = container.querySelector(".second-title");
+    // if ($(".panel-hero").length > 0) {
+    //   const container = document.querySelector(".panel__inner"); // wrapper for both headings
+    //   const firstTitle = container.querySelector(".first-title");
+    //   const secondTitle = container.querySelector(".second-title");
 
-//   let offset = window.innerWidth < 992 
-//       ? window.innerHeight * 0.4  
-//       : window.innerHeight * 0.25; 
+    // let offset = window.innerWidth < 992
+    //     ? window.innerHeight * 0.4
+    //     : window.innerHeight * 0.25;
 
-//   let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
 
-//   // ScrollTrigger to pin the container
-//   ScrollTrigger.create({
-//     trigger: ".panel-hero",
-//     start: `top -${offset}px`,
-//     endTrigger: ".df",
-//     end: "top top",
-//     pin: container, 
-//     pinSpacing: false,
-//     scrub: 1.5,
-//     onEnter: () => {
-//       // Set second heading to absolute
-//       gsap.set(secondTitle, {
-//         position: "absolute",
-//         top: 0,
-//         left: 0,
-//         width: "100%",
-//         textAlign: "center",
-//       });
+    //   // ScrollTrigger to pin the container
+    //   ScrollTrigger.create({
+    //     trigger: ".panel-hero",
+    //     start: `top -${offset}px`,
+    //     endTrigger: ".df",
+    //     end: "top top",
+    //     pin: container,
+    //     pinSpacing: false,
+    //     scrub: 1.5,
+    //     onEnter: () => {
+    //       // Set second heading to absolute
+    //       gsap.set(secondTitle, {
+    //         position: "absolute",
+    //         top: 0,
+    //         left: 0,
+    //         width: "100%",
+    //         textAlign: "center",
+    //       });
 
-//       // Animate first heading scale
-//       gsap.to(firstTitle, {
-//         scale: targetScale,
-//         transformOrigin: "top center",
-//         duration: 1.5,
-//         ease: "expo.out",
-//       });
+    //       // Animate first heading scale
+    //       gsap.to(firstTitle, {
+    //         scale: targetScale,
+    //         transformOrigin: "top center",
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
 
-//       // Animate second heading out
-//       gsap.to(secondTitle, {
-//         scale: 0.2,
-//         opacity: 0,
-//         transformOrigin: "top center",
-//         duration: 1.5,
-//         ease: "expo.out",
-//       });
-//     },
-//     onLeaveBack: () => {
-//       // Immediately reset secondTitle position first to prevent overlap
-//       gsap.set(secondTitle, { 
-//         position: "", top: "", left: "", width: "", textAlign: "" 
-//       });
+    //       // Animate second heading out
+    //       gsap.to(secondTitle, {
+    //         scale: 0.2,
+    //         opacity: 0,
+    //         transformOrigin: "top center",
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
+    //     },
+    //     onLeaveBack: () => {
+    //       // Immediately reset secondTitle position first to prevent overlap
+    //       gsap.set(secondTitle, {
+    //         position: "", top: "", left: "", width: "", textAlign: ""
+    //       });
 
-//       // Reset first heading
-//       gsap.to(firstTitle, {
-//         scale: 1,
-//         transformOrigin: "top center",
-//         duration: 2,
-//         ease: "expo.out",
-//       });
+    //       // Reset first heading
+    //       gsap.to(firstTitle, {
+    //         scale: 1,
+    //         transformOrigin: "top center",
+    //         duration: 2,
+    //         ease: "expo.out",
+    //       });
 
-//       // Reset second heading animation
-//       gsap.to(secondTitle, {
-//         scale: 1,
-//         opacity: 1,
-//         transformOrigin: "top center",
-//         duration: 2,
-//         ease: "expo.out",
-//       });
-//     },
-//     markers: false,
-//   });
+    //       // Reset second heading animation
+    //       gsap.to(secondTitle, {
+    //         scale: 1,
+    //         opacity: 1,
+    //         transformOrigin: "top center",
+    //         duration: 2,
+    //         ease: "expo.out",
+    //       });
+    //     },
+    //     markers: false,
+    //   });
 
-//   // SplitText animation
-//   document.fonts.ready.then(() => {
-//     let firstSplit = new SplitText(firstTitle, { type: "words" });
-//     let secondSplit = new SplitText(secondTitle, { type: "words" });
+    //   // SplitText animation
+    //   document.fonts.ready.then(() => {
+    //     let firstSplit = new SplitText(firstTitle, { type: "words" });
+    //     let secondSplit = new SplitText(secondTitle, { type: "words" });
 
-//     gsap.set([firstTitle, secondTitle], { opacity: 1, visibility: "visible" });
-//     gsap.set([firstSplit.words, secondSplit.words], { opacity: 0, scale: 1 });
+    //     gsap.set([firstTitle, secondTitle], { opacity: 1, visibility: "visible" });
+    //     gsap.set([firstSplit.words, secondSplit.words], { opacity: 0, scale: 1 });
 
-//     let tl = gsap.timeline({});
-//     tl.to(firstSplit.words, {
-//       opacity: 1,
-//       scale: 1,
-//       duration: 0.8,
-//       ease: "power3.out",
-//       stagger: 0.2,
-//     }).to(
-//       secondSplit.words,
-//       {
-//         opacity: 1,
-//         scale: 1,
-//         duration: 0.8,
-//         ease: "power3.out",
-//         stagger: 0.2,
-//       },
-//       "-=0.2"
-//     );
-//   });
-// }
-
-
+    //     let tl = gsap.timeline({});
+    //     tl.to(firstSplit.words, {
+    //       opacity: 1,
+    //       scale: 1,
+    //       duration: 0.8,
+    //       ease: "power3.out",
+    //       stagger: 0.2,
+    //     }).to(
+    //       secondSplit.words,
+    //       {
+    //         opacity: 1,
+    //         scale: 1,
+    //         duration: 0.8,
+    //         ease: "power3.out",
+    //         stagger: 0.2,
+    //       },
+    //       "-=0.2"
+    //     );
+    //   });
+    // }
 
     // pannel hero
     if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
-      let offset = window.innerHeight * 0.25;
+      let offset =
+        window.innerWidth < 992
+          ? window.innerHeight * 0.4
+          : window.innerHeight * 0.25;
       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
 
       ScrollTrigger.create({
@@ -439,8 +440,5 @@
         );
       });
     }
-
-
-
   });
 })(jQuery);
