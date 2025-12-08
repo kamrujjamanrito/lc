@@ -158,6 +158,10 @@ p {
   background-color: #ffffff;
   position: relative;
 }
+.panel .panel__inner {
+  min-width: 100vw !important;
+  text-align: center;
+}
 
 .pin-spacer {
   z-index: 999999 !important;
@@ -182,6 +186,10 @@ p {
   opacity: 0;
   --x: 20%;
   --y: 30%;
+}
+.panel-hero .pin-spacer {
+  min-width: 100vw !important;
+  text-align: center;
 }
 .panel-hero .ig-2 > div {
   --x: 30%;

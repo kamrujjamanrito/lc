@@ -170,6 +170,11 @@ p {
     align-items: center;
     background-color: #ffffff;
     position: relative;
+
+    .panel__inner {
+        min-width: 100vw !important;
+        text-align: center;
+    }
 }
 
 .pin-spacer {
@@ -185,7 +190,6 @@ p {
         line-height: 0.9;
         letter-spacing: -2.5px;
         width: 100%;
-
         &>div {
             background-image: url("../../assets/images/text-bg.jpg");
             background-size: cover;
@@ -200,10 +204,10 @@ p {
         }
     }
 
-    // .pin-spacer {
-    //     min-width: 100vw !important;
-    //     text-align: center;
-    // }
+    .pin-spacer {
+        min-width: 100vw !important;
+        text-align: center;
+    }
 
     .ig-2 {
         &>div {
@@ -216,5 +220,6 @@ p {
             }
         }
     }
+    
 
 }
