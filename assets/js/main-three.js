@@ -1,198 +1,3 @@
-// (function ($) {
-//   "use strict";
-
-//   jQuery(function () {
-//     gsap.registerPlugin(
-//       ScrollTrigger,
-//       ScrollToPlugin,
-//       SplitText,
-//       Observer
-//     );
-
-//     const panels = $(".panel");
-//     let currentIndex = 0;
-//     let animating = false;
-//     let scrollDelta = 0; // accumulate small scrolls
-
-//     function scrollToPanel(index) {
-//       if (index < 0 || index >= panels.length) return;
-//       animating = true;
-
-//       const scrollPos = index * window.innerHeight;
-
-//       gsap.to(window, {
-//         scrollTo: { y: scrollPos },
-//         duration: 1,
-//         ease: "power1.inOut",
-//         onComplete: () => (animating = false),
-//       });
-
-//       currentIndex = index;
-//       scrollDelta = 0; // reset delta on new panel
-//     }
-
-//     // Observer handles wheel, touch, pointer
-//     Observer.create({
-//       type: "wheel,touch,pointer",
-//       wheelSpeed: 0.5, // smaller = slower reaction to tiny wheel
-//       onChangeY: (self) => {
-//         if (animating) return;
-
-//         scrollDelta += self.deltaY; // accumulate delta
-//         const threshold = window.innerHeight * 0.25; // scroll threshold: 25% of viewport
-
-//         if (scrollDelta >= threshold && currentIndex < panels.length - 1) {
-//           scrollToPanel(currentIndex + 1);
-//         } else if (scrollDelta <= -threshold && currentIndex > 0) {
-//           scrollToPanel(currentIndex - 1);
-//         }
-//       },
-//       tolerance: 5,
-//       preventDefault: true,
-//       dragMinimum: 10, // minimum swipe distance on touch
-//       maxTouches: 1, // only 1 finger scroll
-//     });
-
-//     // Initialize first panel
-//     gsap.set(window, { scrollTo: 0 });
-
-//     // ===== Hero panel animation =====
-//     if ($(".panel-hero").length > 0) {
-//       const firstTitle = document.querySelector(".first-title");
-//       const secondTitle = document.querySelector(".second-title");
-//       let offset = window.innerHeight * 0.25;
-//       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-
-//       ScrollTrigger.create({
-//         trigger: ".panel-hero",
-//         start: `top -${offset}px`,
-//         endTrigger: ".df",
-//         end: "top top",
-//         pin: firstTitle,
-//         pinSpacing: false,
-//         scrub: 1.5,
-//         onEnter: () => {
-//           gsap.to(firstTitle, {
-//             scale: targetScale,
-//             transformOrigin: "top center",
-//             duration: 1.5,
-//             ease: "expo.out",
-//           });
-//           gsap.to(secondTitle, {
-//             scale: 0,
-//             opacity: 0,
-//             transformOrigin: "top center",
-//             duration: 1.5,
-//             ease: "expo.out",
-//           });
-//         },
-//         onLeaveBack: () => {
-//           gsap.to(firstTitle, {
-//             scale: 1,
-//             transformOrigin: "top center",
-//             duration: 1.5,
-//             ease: "expo.out",
-//           });
-//           gsap.to(secondTitle, {
-//             scale: 1,
-//             opacity: 1,
-//             transformOrigin: "top center",
-//             duration: 1.5,
-//             ease: "expo.out",
-//           });
-//         },
-//         markers: false,
-//       });
-
-//       document.fonts.ready.then(() => {
-//         let firstSplit = new SplitText(firstTitle, { type: "words" });
-//         let secondSplit = new SplitText(secondTitle, { type: "words" });
-
-//         gsap.set([firstTitle, secondTitle], {
-//           opacity: 1,
-//           visibility: "visible",
-//         });
-//         gsap.set([firstSplit.words, secondSplit.words], {
-//           opacity: 0,
-//           scale: 1,
-//         });
-
-//         let tl = gsap.timeline({});
-//         tl.to(firstSplit.words, {
-//           opacity: 1,
-//           scale: 1,
-//           duration: 0.8,
-//           ease: "power3.out",
-//           stagger: 0.2,
-//         }).to(
-//           secondSplit.words,
-//           {
-//             opacity: 1,
-//             scale: 1,
-//             duration: 0.8,
-//             ease: "power3.out",
-//             stagger: 0.2,
-//           },
-//           "-=0.2"
-//         );
-//       });
-//     }
-//   });
-// })(jQuery);
-
-// (function ($) {
-//   "use strict";
-//   jQuery(function () {
-//     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText, Observer);
-//     const panels = gsap.utils.toArray(".panel");
-//     let currentIndex = 0;
-//     let animating = false;
-//     function fixMobileVH() {
-//       document.documentElement.style.setProperty(
-//         "--vh",
-//         window.innerHeight * 0.01 + "px"
-//       );
-//     }
-//     fixMobileVH();
-//     window.addEventListener("resize", fixMobileVH);
-//     function scrollToPanel(index) {
-//       if (index < 0 || index >= panels.length) return;
-//       animating = true;
-//       const viewportHeight = document.documentElement.clientHeight;
-//       const scrollPos = index * viewportHeight;
-//       gsap.to(window, {
-//         scrollTo: { y: scrollPos },
-//         duration: 1,
-//         ease: "power2.out",
-//         onComplete: () => (animating = false),
-//       });
-//       currentIndex = index;
-//     }
-//     Observer.create({
-//       target: window,
-//       type: "touch,wheel,pointer",
-//       wheelSpeed: -1,
-//       tolerance: 10,
-//       preventDefault: true,
-//       onDown: () => {
-//         if (!animating) scrollToPanel(currentIndex - 1);
-//       },
-//       onUp: () => {
-//         if (!animating) scrollToPanel(currentIndex + 1);
-//       },
-//       onWheel: (self) => {
-//         if (animating) return;
-//         if (self.deltaY > 0) {
-//           scrollToPanel(currentIndex - 1);
-//         } else {
-//           scrollToPanel(currentIndex + 1);
-//         }
-//       },
-//     });
-//     gsap.set(window, { scrollTo: 0 });
-//   });
-// })(jQuery);
-
 (function ($) {
   "use strict";
 
@@ -251,109 +56,6 @@
     }
 
     // pannel hero
-    // if ($(".panel-hero").length > 0) {
-    //   const container = document.querySelector(".panel__inner"); // wrapper for both headings
-    //   const firstTitle = container.querySelector(".first-title");
-    //   const secondTitle = container.querySelector(".second-title");
-
-    // let offset = window.innerWidth < 992
-    //     ? window.innerHeight * 0.4
-    //     : window.innerHeight * 0.25;
-
-    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-
-    //   // ScrollTrigger to pin the container
-    //   ScrollTrigger.create({
-    //     trigger: ".panel-hero",
-    //     start: `top -${offset}px`,
-    //     endTrigger: ".df",
-    //     end: "top top",
-    //     pin: container,
-    //     pinSpacing: false,
-    //     scrub: 1.5,
-    //     onEnter: () => {
-    //       // Set second heading to absolute
-    //       gsap.set(secondTitle, {
-    //         position: "absolute",
-    //         top: 0,
-    //         left: 0,
-    //         width: "100%",
-    //         textAlign: "center",
-    //       });
-
-    //       // Animate first heading scale
-    //       gsap.to(firstTitle, {
-    //         scale: targetScale,
-    //         transformOrigin: "top center",
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-
-    //       // Animate second heading out
-    //       gsap.to(secondTitle, {
-    //         scale: 0.2,
-    //         opacity: 0,
-    //         transformOrigin: "top center",
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-    //     },
-    //     onLeaveBack: () => {
-    //       // Immediately reset secondTitle position first to prevent overlap
-    //       gsap.set(secondTitle, {
-    //         position: "", top: "", left: "", width: "", textAlign: ""
-    //       });
-
-    //       // Reset first heading
-    //       gsap.to(firstTitle, {
-    //         scale: 1,
-    //         transformOrigin: "top center",
-    //         duration: 2,
-    //         ease: "expo.out",
-    //       });
-
-    //       // Reset second heading animation
-    //       gsap.to(secondTitle, {
-    //         scale: 1,
-    //         opacity: 1,
-    //         transformOrigin: "top center",
-    //         duration: 2,
-    //         ease: "expo.out",
-    //       });
-    //     },
-    //     markers: false,
-    //   });
-
-    //   // SplitText animation
-    //   document.fonts.ready.then(() => {
-    //     let firstSplit = new SplitText(firstTitle, { type: "words" });
-    //     let secondSplit = new SplitText(secondTitle, { type: "words" });
-
-    //     gsap.set([firstTitle, secondTitle], { opacity: 1, visibility: "visible" });
-    //     gsap.set([firstSplit.words, secondSplit.words], { opacity: 0, scale: 1 });
-
-    //     let tl = gsap.timeline({});
-    //     tl.to(firstSplit.words, {
-    //       opacity: 1,
-    //       scale: 1,
-    //       duration: 0.8,
-    //       ease: "power3.out",
-    //       stagger: 0.2,
-    //     }).to(
-    //       secondSplit.words,
-    //       {
-    //         opacity: 1,
-    //         scale: 1,
-    //         duration: 0.8,
-    //         ease: "power3.out",
-    //         stagger: 0.2,
-    //       },
-    //       "-=0.2"
-    //     );
-    //   });
-    // }
-
-    // pannel hero
     if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
@@ -403,7 +105,7 @@
             ease: "expo.out",
           });
         },
-        markers: true,
+        markers: false,
       });
 
       document.fonts.ready.then(() => {
@@ -440,5 +142,188 @@
         );
       });
     }
+
+    // panel two
+    if ($(".panel-two").length > 0) {
+      document.fonts.ready.then(() => {
+        const lines = gsap.utils.toArray(".line-animation");
+        if (lines.length) {
+          gsap.set(lines, { opacity: 0, y: 0, visibility: "visible" });
+          let tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".sticky-line-wrapper",
+              start: "top 80%",
+              end: "bottom top",
+              toggleActions: "play none none none",
+              markers: false,
+            },
+            delay: 0.4,
+          });
+          lines.forEach((line, index) => {
+            tl.to(
+              line,
+              { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+              index * 0.3
+            );
+          });
+        }
+      });
+    }
+
+    // panel three
+    if ($(".panel-three").length > 0) {
+      const firstTitle = document.querySelector(".stick-top");
+      let offset =
+        window.innerWidth < 992
+          ? window.innerHeight * 0.4
+          : window.innerHeight * 0.32;
+      let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+
+      ScrollTrigger.create({
+        trigger: ".panel-three",
+        start: `top -${offset}px`,
+        endTrigger: ".rcd",
+        end: "top top",
+        pin: ".panel-three .panel__inner",
+        pinSpacing: false,
+        scrub: 1.5,
+        onEnter: () => {
+          gsap.to(firstTitle, {
+            scale: targetScale,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(firstTitle, {
+            scale: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        markers: false,
+      });
+    }
+
+    // panel six
+    if ($(".panel-six").length > 0) {
+      ScrollTrigger.create({
+        trigger: ".panel-six",
+        start: "top center",
+        onEnter: () => gsap.to(".drf", { autoAlpha: 0, duration: 3 }),
+        onLeaveBack: () => gsap.to(".drf", { autoAlpha: 1, duration: 3 }),
+      });
+
+      const drf = document.querySelector(".drf");
+      const lastPanel = document.querySelector("#lastPanel");
+
+      drf.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        gsap.to(window, {
+          scrollTo: lastPanel,
+          duration: 3,
+          ease: "power3.out",
+        });
+      });
+    }
+
+    // Reset scroll on reload
+    $(window).on("beforeunload", function () {
+      $(window).scrollTop(0);
+    });
   });
+
+  // shimmer animations
+  // if ($(".shimmer-chars").length > 0) {
+  //   document.addEventListener("DOMContentLoaded", function () {
+  //     const el = document.querySelector(".shimmer-chars");
+  //     const text = el.innerText;
+
+  //     el.innerHTML = text
+  //       .split("")
+  //       .map((char) =>
+  //         char === " "
+  //           ? `<span class="char space">&nbsp;</span>`
+  //           : `<span class="char">${char}</span>`
+  //       )
+  //       .join("");
+
+  //     const chars = el.querySelectorAll(".char");
+
+  //     let index = 0;
+  //     let isPaused = false;
+
+  //     function shimmerStep() {
+  //       if (isPaused) return;
+
+  //       chars.forEach((c) => c.classList.remove("active"));
+
+  //       for (let i = 0; i < 3; i++) {
+  //         chars[(index + i) % chars.length].classList.add("active");
+  //       }
+
+  //       index++;
+
+  //       if (index >= chars.length) {
+  //         isPaused = true;
+  //         setTimeout(() => {
+  //           index = 0;
+  //           isPaused = false;
+  //         }, 200);
+  //       }
+  //     }
+
+  //     setInterval(shimmerStep, 80);
+  //   });
+  // }
+
+  if ($(".shimmer-chars").length > 0) {
+    document.addEventListener("DOMContentLoaded", function () {
+      const el = document.querySelector(".shimmer-chars");
+      const text = el.innerText;
+
+      el.innerHTML = text
+        .split("")
+        .map((char) =>
+          char === " "
+            ? `<span class="char space">&nbsp;</span>`
+            : `<span class="char">${char}</span>`
+        )
+        .join("");
+
+      const chars = el.querySelectorAll(".char");
+
+      let index = 0;
+      const groupSize = 4;
+      const speed = 140;
+      const resetDelay = 0;
+      let resting = false;
+
+      function shimmerStep() {
+        if (resting) return;
+
+        chars.forEach((c) => c.classList.remove("active"));
+
+        for (let i = 0; i < groupSize; i++) {
+          chars[(index + i) % chars.length].classList.add("active");
+        }
+
+        index++;
+
+        if (index >= chars.length) {
+          resting = true;
+
+          setTimeout(() => {
+            index = 0;
+            resting = false;
+          }, resetDelay);
+        }
+      }
+
+      setInterval(shimmerStep, speed);
+    });
+  }
 })(jQuery);
