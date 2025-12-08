@@ -362,52 +362,48 @@
       let offset = window.innerHeight * 0.25;
       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
 
- ScrollTrigger.create({
-  trigger: ".panel-hero",
-  start: "top 50px",           // <-- FIXED offset: always pins 50px from the top
-  endTrigger: ".df",
-  end: "top top",
-  pin: ".panel-hero .panel__inner",
-  pinSpacing: false,
-  scrub: 1.5,
-
-  onEnter: () => {
-    gsap.to(firstTitle, {
-      scale: targetScale,
-      transformOrigin: "top center",
-      duration: 1.5,
-      ease: "expo.out",
-    });
-    gsap.to(secondTitle, {
-      scale: 0.2,
-      opacity: 0,
-      y: "-100%",
-      transformOrigin: "top center",
-      duration: 1.5,
-      ease: "expo.out",
-    });
-  },
-
-  onLeaveBack: () => {
-    gsap.to(firstTitle, {
-      scale: 1,
-      transformOrigin: "top center",
-      duration: 1.5,
-      ease: "expo.out",
-    });
-    gsap.to(secondTitle, {
-      scale: 1,
-      opacity: 1,
-      y: "0%",
-      transformOrigin: "top center",
-      duration: 1.5,
-      ease: "expo.out",
-    });
-  },
-
-  markers: true,
-});
-
+      ScrollTrigger.create({
+        trigger: ".panel-hero",
+        start: `top -${offset}px`,
+        endTrigger: ".df",
+        end: "top top",
+        pin: ".panel-hero .panel__inner",
+        pinSpacing: false,
+        scrub: 1.5,
+        onEnter: () => {
+          gsap.to(firstTitle, {
+            scale: targetScale,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(secondTitle, {
+            scale: 0.2,
+            opacity: 0,
+            y: "-100%",
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(firstTitle, {
+            scale: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(secondTitle, {
+            scale: 1,
+            opacity: 1,
+            y: "0%",
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
+        markers: true,
+      });
 
       document.fonts.ready.then(() => {
         let firstSplit = new SplitText(firstTitle, { type: "words" });
