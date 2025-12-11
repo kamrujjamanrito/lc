@@ -317,13 +317,14 @@ p {
 }
 
 .panel-five {
-  padding-block-start: 40px !important;
+  padding-block-start: 120px !important;
 }
 .panel-five h1 {
   font-size: 4.5rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -2.5px;
+  letter-spacing: -1px;
+  margin-bottom: 4px;
 }
 .panel-five h1:nth-last-of-type(1) {
   margin-bottom: 0px;
@@ -343,7 +344,6 @@ p {
 .panel-five .sticky-line {
   display: flex;
   flex-direction: column;
-  gap: 3.75rem;
 }
 .panel-five .mb-50 {
   margin-bottom: 50px;
@@ -493,11 +493,8 @@ p {
 }
 
 .bottom-line {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
   text-align: center;
+  margin-bottom: 25px;
 }
 .bottom-line p {
   font-size: 2rem;
@@ -565,4 +562,24 @@ p {
   opacity: 0;
   --x: 20%;
   --y: 30%;
+}
+
+.pr-4 h1 {
+  font-size: 8.5rem;
+}
+@media only screen and (max-width: 991px) {
+  .pr-4 h1 {
+    letter-spacing: -1px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .pr-4 h1 {
+    font-size: 8rem;
+    line-height: 1;
+    letter-spacing: 0px;
+  }
+}
+
+.last-panel p {
+  font-weight: 600;
 }/*# sourceMappingURL=main.css.map */

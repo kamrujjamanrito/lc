@@ -221,49 +221,119 @@
     //   });
     // }
 
-        if ($(".cmf").length > 0) {
-      const firstTitle = document.querySelector(".stick-top");
-      let offset =
-        window.innerWidth < 992
-          ? window.innerHeight * 0.4
-          : window.innerHeight * 0.25;
-      let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-      ScrollTrigger.create({
-        trigger: ".cmf",
-        start: `top -${offset}px`,
-        endTrigger: ".df",
-        end: "top top",
-        pin: ".cmf .panel__inner",
-        pinSpacing: false,
-        scrub: 1.5,
+    //     if ($(".cmf").length > 0) {
+    //   const firstTitle = document.querySelector(".stick-top");
+    //   let offset =
+    //     window.innerWidth < 992
+    //       ? window.innerHeight * 0.4
+    //       : window.innerHeight * 0.25;
+    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.25;
+    //   ScrollTrigger.create({
+    //     trigger: ".cmf",
+    //     start: `top -${offset}px`,
+    //     endTrigger: ".df",
+    //     end: "top top",
+    //     pin: ".cmf.panel__inner",
+    //     pinSpacing: false,
+    //     scrub: 1.5,
 
-        onEnter: () => {
-          const rect = firstTitle.getBoundingClientRect();
-          const currentTop = rect.top;
+    //     onEnter: () => {
+    //       const rect = firstTitle.getBoundingClientRect();
+    //       const currentTop = rect.top;
 
-          const fixedOffset = window.innerWidth < 992 ? 25 : 25;
+    //       const fixedOffset = window.innerWidth < 992 ? 70 : 70;
 
-          gsap.to(firstTitle, {
-            y: fixedOffset - currentTop,
-            scale: targetScale,
-            transformOrigin: "top center",
-            duration: 1.5,
-            ease: "expo.out",
-          });
-        },
+    //       gsap.to(firstTitle, {
+    //         y: fixedOffset - currentTop,
+    //         scale: targetScale,
+    //         transformOrigin: "top center",
+    //         opacity: 0.2,
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
+    //     },
 
-        onLeaveBack: () => {
-          gsap.to(firstTitle, {
-            y: 0,
-            scale: 1,
-            transformOrigin: "top center",
-            duration: 1.5,
-            ease: "expo.out",
-          });
-        },
+    //     onLeaveBack: () => {
+    //       gsap.to(firstTitle, {
+    //         y: 0,
+    //         scale: 1,
+    //         opacity: 1,
+    //         transformOrigin: "top center",
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
+    //     },
+    //   });
+
+    // }
+
+    if ($(".cmf").length > 0) {
+
+  const firstTitle = document.querySelector(".stick-top");
+  const otherTitles = gsap.utils.toArray(".cmf .title-split:not(.stick-top)");
+
+  let offset =
+    window.innerWidth < 992
+      ? window.innerHeight * 0.4
+      : window.innerHeight * 0.25;
+  let targetScale = window.innerWidth < 992 ? 0.5 : 0.25;
+
+  ScrollTrigger.create({
+    trigger: ".cmf",
+    start: `top -${offset}px`,
+    endTrigger: ".rcd",
+    end: "top top",
+    pin: ".cmf.panel__inner",
+    pinSpacing: false,
+    scrub: 1.5,
+
+    onEnter: () => {
+      const rect = firstTitle.getBoundingClientRect();
+      const currentTop = rect.top;
+      const fixedOffset = window.innerWidth < 992 ? 70 : 70;
+
+      // Animate stick-top
+      gsap.to(firstTitle, {
+        y: fixedOffset - currentTop,
+        scale: targetScale,
+        transformOrigin: "top center",
+        opacity: 0.2,
+        duration: 1.5,
+        ease: "expo.out"
       });
 
+      // Fade out other titles
+      gsap.to(otherTitles, {
+        opacity: 0,
+        y: -80,
+        duration: 1.5,
+        ease: "expo.out"
+      });
+    },
+
+    onLeaveBack: () => {
+      // Reset stick-top
+      gsap.to(firstTitle, {
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        transformOrigin: "top center",
+        duration: 1.5,
+        ease: "expo.out"
+      });
+
+      // Reset other titles
+      gsap.to(otherTitles, {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "expo.out"
+      });
     }
+  });
+
+}
+
 
     // panel six
     if ($(".panel-six").length > 0) {
@@ -313,7 +383,7 @@
             y: 0,
             scale: 1,
             rotationX: 0,
-            duration: 0.8,
+            duration: 0.6,
             ease: "expo.out",
             stagger: {
               amount: 0.2,
@@ -321,7 +391,7 @@
             },
             scrollTrigger: {
               trigger: title,
-              start: "top 80%",
+              start: "top 90%",
               toggleActions: "play none none none",
             },
           });
