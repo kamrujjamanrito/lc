@@ -64,7 +64,6 @@
           ? window.innerHeight * 0.4
           : window.innerHeight * 0.25;
       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-
       ScrollTrigger.create({
         trigger: ".panel-hero",
         start: `top -${offset}px`,
@@ -73,39 +72,54 @@
         pin: ".panel-hero .panel__inner",
         pinSpacing: false,
         scrub: 1.5,
+
         onEnter: () => {
+          const rect = firstTitle.getBoundingClientRect();
+          const currentTop = rect.top;
+
+          const fixedOffset = window.innerWidth < 992 ? 25 : 25;
+
           gsap.to(firstTitle, {
+            y: fixedOffset - currentTop,
             scale: targetScale,
             transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
           });
+
+          gsap.to(secondTitle, {
+            opacity: 0,
+            duration: 0.5,
+            ease: "expo.out",
+          });
+
           gsap.to(secondTitle, {
             scale: 0.2,
-            opacity: 0,
             y: "-100%",
             transformOrigin: "top center",
-            duration: 1.5,
+            duration: 1.2,
             ease: "expo.out",
           });
         },
+
         onLeaveBack: () => {
           gsap.to(firstTitle, {
+            y: 0,
             scale: 1,
             transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
           });
+
           gsap.to(secondTitle, {
             scale: 1,
             opacity: 1,
             y: "0%",
-            transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
+            transformOrigin: "top center",
           });
         },
-        markers: false,
       });
 
       document.fonts.ready.then(() => {
@@ -171,40 +185,84 @@
     }
 
     // panel three
-    if ($(".panel-three").length > 0) {
+    // if ($(".panel-three").length > 0) {
+    //   const firstTitle = document.querySelector(".stick-top");
+    //   let offset =
+    //     window.innerWidth < 992
+    //       ? window.innerHeight * 0.4
+    //       : window.innerHeight * 0.32;
+    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+
+    //   ScrollTrigger.create({
+    //     trigger: ".panel-three",
+    //     start: `top -${offset}px`,
+    //     endTrigger: ".rcd",
+    //     end: "top top",
+    //     pin: ".panel-three .panel__inner",
+    //     pinSpacing: false,
+    //     scrub: 1.5,
+    //     onEnter: () => {
+    //       gsap.to(firstTitle, {
+    //         scale: targetScale,
+    //         transformOrigin: "top center",
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
+    //     },
+    //     onLeaveBack: () => {
+    //       gsap.to(firstTitle, {
+    //         scale: 1,
+    //         transformOrigin: "top center",
+    //         duration: 1.5,
+    //         ease: "expo.out",
+    //       });
+    //     },
+    //     markers: false,
+    //   });
+    // }
+
+        if ($(".cmf").length > 0) {
       const firstTitle = document.querySelector(".stick-top");
       let offset =
         window.innerWidth < 992
           ? window.innerHeight * 0.4
-          : window.innerHeight * 0.32;
+          : window.innerHeight * 0.25;
       let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-
       ScrollTrigger.create({
-        trigger: ".panel-three",
+        trigger: ".cmf",
         start: `top -${offset}px`,
-        endTrigger: ".rcd",
+        endTrigger: ".df",
         end: "top top",
-        pin: ".panel-three .panel__inner",
+        pin: ".cmf .panel__inner",
         pinSpacing: false,
         scrub: 1.5,
+
         onEnter: () => {
+          const rect = firstTitle.getBoundingClientRect();
+          const currentTop = rect.top;
+
+          const fixedOffset = window.innerWidth < 992 ? 25 : 25;
+
           gsap.to(firstTitle, {
+            y: fixedOffset - currentTop,
             scale: targetScale,
             transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
           });
         },
+
         onLeaveBack: () => {
           gsap.to(firstTitle, {
+            y: 0,
             scale: 1,
             transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
           });
         },
-        markers: false,
       });
+
     }
 
     // panel six
@@ -234,51 +292,43 @@
     $(window).on("beforeunload", function () {
       $(window).scrollTop(0);
     });
+
+    if ($(".title-split").length > 0) {
+      document.fonts.ready.then(() => {
+        const titles = gsap.utils.toArray(".title-split");
+
+        titles.forEach((title) => {
+          const split = new SplitText(title, { type: "chars" });
+
+          gsap.set(split.chars, {
+            opacity: 0,
+            y: 50,
+            scale: 0.9,
+            rotationX: 45,
+            transformOrigin: "0% 100%",
+          });
+
+          gsap.to(split.chars, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            duration: 0.8,
+            ease: "expo.out",
+            stagger: {
+              amount: 0.2,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: title,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          });
+        });
+      });
+    }
   });
-
-  // shimmer animations
-  // if ($(".shimmer-chars").length > 0) {
-  //   document.addEventListener("DOMContentLoaded", function () {
-  //     const el = document.querySelector(".shimmer-chars");
-  //     const text = el.innerText;
-
-  //     el.innerHTML = text
-  //       .split("")
-  //       .map((char) =>
-  //         char === " "
-  //           ? `<span class="char space">&nbsp;</span>`
-  //           : `<span class="char">${char}</span>`
-  //       )
-  //       .join("");
-
-  //     const chars = el.querySelectorAll(".char");
-
-  //     let index = 0;
-  //     let isPaused = false;
-
-  //     function shimmerStep() {
-  //       if (isPaused) return;
-
-  //       chars.forEach((c) => c.classList.remove("active"));
-
-  //       for (let i = 0; i < 3; i++) {
-  //         chars[(index + i) % chars.length].classList.add("active");
-  //       }
-
-  //       index++;
-
-  //       if (index >= chars.length) {
-  //         isPaused = true;
-  //         setTimeout(() => {
-  //           index = 0;
-  //           isPaused = false;
-  //         }, 200);
-  //       }
-  //     }
-
-  //     setInterval(shimmerStep, 80);
-  //   });
-  // }
 
   if ($(".shimmer-chars").length > 0) {
     document.addEventListener("DOMContentLoaded", function () {

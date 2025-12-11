@@ -246,9 +246,8 @@ p {
 .panel-two h1 {
   font-size: 5.5rem;
   font-weight: 500;
-  line-height: 0.8;
-  margin-bottom: 3.75rem;
-  letter-spacing: -2.5px;
+  line-height: 1;
+  letter-spacing: -1.5px;
 }
 .panel-two h1:nth-last-of-type(1) {
   margin-bottom: 0px;
@@ -297,7 +296,7 @@ p {
   }
 }
 .panel-three .dcf {
-  font-size: 9.938rem;
+  font-size: 8.938rem;
 }
 @media only screen and (max-width: 991px) {
   .panel-three .dcf {
@@ -539,4 +538,31 @@ p {
 
 .shimmer-chars .char.space {
   opacity: 0;
+}
+
+.mask-image {
+  position: relative;
+  background-color: #ffffff;
+}
+.mask-image img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-56%);
+  width: 100%;
+  max-height: 100vh;
+  mix-blend-mode: lighten;
+}
+
+.title-split > div {
+  background-image: url("../../assets/images/text-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--x) var(--y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  --x: 20%;
+  --y: 30%;
 }/*# sourceMappingURL=main.css.map */
