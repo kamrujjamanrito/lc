@@ -500,7 +500,7 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
+  gap: 2.5rem;
 }
 .stick-c h2 {
   font-size: 6.25rem;
@@ -702,7 +702,6 @@ p {
   height: 100vh;
   z-index: 9999999;
   background: white;
-  pointer-events: all;
 }
 #lastPanel.last-panel-active #luckyTitle {
   display: block;
@@ -720,6 +719,7 @@ p {
   --y: 80%;
   display: none;
   min-width: 300px;
+  text-align: center;
 }
 @media only screen and (max-width: 991px) {
   #luckyTitle {
@@ -736,6 +736,6 @@ p {
 }
 @media only screen and (max-width: 991px) {
   .last-panel .mask-image img {
-    transform: translateY(-50%) scale(1.8) !important;
+    transform: translateY(-50%) scale(1.9) !important;
   }
 }/*# sourceMappingURL=main.css.map */

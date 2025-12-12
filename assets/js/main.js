@@ -5,55 +5,158 @@
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
     // smooth scroll full section
+    // if ($(".panel-wrapper").length > 0) {
+    //   const panels = gsap.utils.toArray(".panel");
+    //   let currentIndex = 0;
+    //   let animating = false;
+
+    //   function setVH() {
+    //     const vh = window.innerHeight * 0.01;
+    //     document.documentElement.style.setProperty("--vh", `${vh}px`);
+    //     panels.forEach((panel) => {
+    //       panel.style.height = `${window.innerHeight}px`;
+    //     });
+    //   }
+    //   setVH();
+    //   window.addEventListener("resize", setVH);
+    //   window.addEventListener("orientationchange", setVH);
+    //   function scrollToPanel(index) {
+    //     if (index < 0) index = 0;
+    //     if (index >= panels.length) index = panels.length - 1;
+    //     animating = true;
+
+    //     gsap.to(window, {
+    //       scrollTo: { y: index * window.innerHeight },
+    //       duration: 1.5,
+    //       ease: "power2.out",
+    //       onComplete: () => (animating = false),
+    //     });
+
+    //     currentIndex = index;
+    //   }
+
+    //   Observer.create({
+    //     target: window,
+    //     type: "touch,wheel",
+    //     wheelSpeed: -1,
+    //     preventDefault: true,
+    //     onWheel: (self) => {
+    //       if (animating) return;
+    //       if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+    //       else scrollToPanel(currentIndex + 1);
+    //     },
+    //     onChangeY: (self) => {
+    //       if (animating) return;
+    //       if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+    //       else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
+    //     },
+    //   });
+
+    //   gsap.set(window, { scrollTo: 0 });
+    // }
+
     if ($(".panel-wrapper").length > 0) {
-      const panels = gsap.utils.toArray(".panel");
-      let currentIndex = 0;
-      let animating = false;
+  const panels = gsap.utils.toArray(".panel");
+  let currentIndex = 0;
+  let animating = false;
+  let modalOpen = false; // track modal globally
 
-      function setVH() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
-        panels.forEach((panel) => {
-          panel.style.height = `${window.innerHeight}px`;
-        });
-      }
-      setVH();
-      window.addEventListener("resize", setVH);
-      window.addEventListener("orientationchange", setVH);
-      function scrollToPanel(index) {
-        if (index < 0) index = 0;
-        if (index >= panels.length) index = panels.length - 1;
-        animating = true;
+  function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    panels.forEach((panel) => {
+      panel.style.height = `${window.innerHeight}px`;
+    });
+  }
+  setVH();
+  window.addEventListener("resize", setVH);
+  window.addEventListener("orientationchange", setVH);
 
-        gsap.to(window, {
-          scrollTo: { y: index * window.innerHeight },
-          duration: 1.5,
-          ease: "power2.out",
-          onComplete: () => (animating = false),
-        });
+  function scrollToPanel(index) {
+    if (index < 0) index = 0;
+    if (index >= panels.length) index = panels.length - 1;
+    animating = true;
 
-        currentIndex = index;
-      }
+    gsap.to(window, {
+      scrollTo: { y: index * window.innerHeight },
+      duration: 1.5,
+      ease: "power2.out",
+      onComplete: () => (animating = false),
+    });
 
-      Observer.create({
-        target: window,
-        type: "touch,wheel",
-        wheelSpeed: -1,
-        preventDefault: true,
-        onWheel: (self) => {
-          if (animating) return;
-          if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
-          else scrollToPanel(currentIndex + 1);
-        },
-        onChangeY: (self) => {
-          if (animating) return;
-          if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
-          else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
-        },
-      });
+    currentIndex = index;
+  }
 
-      gsap.set(window, { scrollTo: 0 });
-    }
+  // Full-page scroll Observer
+  const panelObserver = Observer.create({
+    target: window,
+    type: "touch,wheel",
+    wheelSpeed: -1,
+    preventDefault: true,
+    onWheel: (self) => {
+      if (animating || modalOpen) return; // ✅ block scroll if modal active
+      if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+      else scrollToPanel(currentIndex + 1);
+    },
+    onChangeY: (self) => {
+      if (animating || modalOpen) return; // ✅ block scroll if modal active
+      if (self.deltaY > 0) scrollToPanel(currentIndex - 1);
+      else if (self.deltaY < 0) scrollToPanel(currentIndex + 1);
+    },
+  });
+
+  gsap.set(window, { scrollTo: 0 });
+
+  // =======================
+  // Modal logic
+  // =======================
+  const $lastPanel = $("#lastPanel");
+  const $drf = $(".drf");
+
+  $(".drf img").on("click", function () {
+    if (modalOpen) return;
+
+    modalOpen = true;
+    $drf.addClass("hidden");
+    $lastPanel.addClass("last-panel-active");
+    $("body").css("overflow", "hidden"); // disable body scroll
+
+    gsap.fromTo(
+      $lastPanel,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.6, ease: "power2.out" }
+    );
+  });
+
+  function closeModal() {
+    if (!modalOpen) return;
+
+    modalOpen = false;
+
+    gsap.to($lastPanel, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        $lastPanel.removeClass("last-panel-active");
+        gsap.set($lastPanel, { opacity: 1 });
+        $drf.removeClass("hidden");
+        $("body").css("overflow", "visible"); // restore scroll
+      },
+    });
+  }
+
+  // Close modal on scroll/wheel/touchmove
+  Observer.create({
+    target: window,
+    type: "wheel,touch",
+    wheelSpeed: -1,
+    preventDefault: true,
+    onWheel: closeModal,
+    onTouchMove: closeModal,
+  });
+}
+
 
     // pannel hero
     if ($(".panel-hero").length > 0) {
