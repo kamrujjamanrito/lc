@@ -719,6 +719,12 @@ p {
   --x: 20%;
   --y: 80%;
   display: none;
+  min-width: 300px;
+}
+@media only screen and (max-width: 991px) {
+  #luckyTitle {
+    font-size: 24px;
+  }
 }
 
 .hidden {

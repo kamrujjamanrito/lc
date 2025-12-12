@@ -274,68 +274,75 @@
     }
 
     // panel six
+if ($(".panel-six").length > 0) {
+  const $lastPanel = $("#lastPanel");
+  const $drf = $(".drf");
+  let modalOpen = false;
 
-    if ($(".panel-six").length > 0) {
-      const $lastPanel = $("#lastPanel");
-      const $drf = $(".drf");
-      let modalOpen = false;
+  // Open modal
+  $(".drf img").on("click", function () {
+    if (modalOpen) return;
 
-      // Open modal
-      $(".drf img").on("click", function () {
-        if (modalOpen) return;
+    modalOpen = true;
+    $drf.addClass("hidden");
+    $lastPanel.addClass("last-panel-active");
 
-        modalOpen = true;
-        $drf.addClass("hidden");
-        $lastPanel.addClass("last-panel-active");
+    // Disable body scroll while modal open
+    $("body").css("overflow", "hidden");
 
-        gsap.fromTo(
-          $lastPanel,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6, ease: "power2.out" }
-        );
-      });
+    gsap.fromTo(
+      $lastPanel,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.6, ease: "power2.out" }
+    );
+  });
 
-      // CLOSE MODAL ONLY ON SCROLL (wheel), NOT ON real scrollTop
-      window.addEventListener(
-        "wheel",
-        function (e) {
-          if (!modalOpen) return;
+  // CLOSE MODAL on wheel or touch (mobile)
+  Observer.create({
+    target: window,
+    type: "wheel,touch",
+    wheelSpeed: -1,
+    preventDefault: true,
+    onWheel: closeModal,
+    onTouchMove: closeModal,
+  });
 
-          modalOpen = false;
+  function closeModal(self) {
+    if (!modalOpen) return;
 
-          gsap.to($lastPanel, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.in",
-            onComplete: () => {
-              $lastPanel.removeClass("last-panel-active");
-              gsap.set($lastPanel, { opacity: 1 });
-              $drf.removeClass("hidden");
-            },
-          });
-        },
-        { passive: true }
-      );
+    modalOpen = false;
 
-      // OPTIONAL: keep your DRF visible state based on section
-      $(window).on("scroll", function () {
-        // show/hide drf normally, but DO NOT close modal here
-        if (modalOpen) return;
+    gsap.to($lastPanel, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        $lastPanel.removeClass("last-panel-active");
+        gsap.set($lastPanel, { opacity: 1 });
+        $drf.removeClass("hidden");
 
-        if (isInLastSection()) {
-          $drf.addClass("hidden");
-        } else {
-          $drf.removeClass("hidden");
-        }
-      });
+        // Restore body scroll
+        $("body").css("overflow", "visible");
+      },
+    });
+  }
 
-      function isInLastSection() {
-        const winTop = $(window).scrollTop();
-        const lastTop = $lastPanel.offset().top;
-        const lastBottom = lastTop + $lastPanel.outerHeight();
-        return winTop >= lastTop - 50 && winTop < lastBottom - 50;
-      }
-    }
+  // Keep DRF visibility for last section
+  $(window).on("scroll", function () {
+    if (modalOpen) return;
+
+    if (isInLastSection()) $drf.addClass("hidden");
+    else $drf.removeClass("hidden");
+  });
+
+  function isInLastSection() {
+    const winTop = $(window).scrollTop();
+    const lastTop = $lastPanel.offset().top;
+    const lastBottom = lastTop + $lastPanel.outerHeight();
+    return winTop >= lastTop - 50 && winTop < lastBottom - 50;
+  }
+}
+
 
     // Reset scroll on reload
     $(window).on("beforeunload", function () {
