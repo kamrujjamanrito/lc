@@ -59,11 +59,13 @@
     if ($(".panel-hero").length > 0) {
       const firstTitle = document.querySelector(".first-title");
       const secondTitle = document.querySelector(".second-title");
+      const ftr = document.querySelector(".first-title-wrapper");
+      const oc = document.querySelector(".oc");
       let offset =
         window.innerWidth < 992
           ? window.innerHeight * 0.4
           : window.innerHeight * 0.25;
-      let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+      let targetScale = window.innerWidth < 992 ? 0.7 : 0.2;
       ScrollTrigger.create({
         trigger: ".panel-hero",
         start: `top -${offset}px`,
@@ -88,16 +90,21 @@
           });
 
           gsap.to(secondTitle, {
-            opacity: 0,
-            duration: 0.5,
-            ease: "expo.out",
-          });
-
-          gsap.to(secondTitle, {
             scale: 0.2,
             y: "-100%",
             transformOrigin: "top center",
-            duration: 1.2,
+            duration: 2,
+            ease: "expo.out",
+          });
+          gsap.to(oc, {
+            y: "-100%",
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(ftr, {
+            transformOrigin: "top center",
+            duration: 1.5,
             ease: "expo.out",
           });
         },
@@ -106,6 +113,20 @@
           gsap.to(firstTitle, {
             y: 0,
             scale: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
+          gsap.to(ftr, {
+            scale: 1,
+            opacity: 1,
+            y: "0%",
+            duration: 1.5,
+            ease: "expo.out",
+            transformOrigin: "top center",
+          });
+          gsap.to(oc, {
+            y: "0%",
             transformOrigin: "top center",
             duration: 1.5,
             ease: "expo.out",
@@ -185,265 +206,140 @@
     }
 
     // panel three
-    // if ($(".panel-three").length > 0) {
-    //   const firstTitle = document.querySelector(".stick-top");
-    //   let offset =
-    //     window.innerWidth < 992
-    //       ? window.innerHeight * 0.4
-    //       : window.innerHeight * 0.32;
-    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.2;
-
-    //   ScrollTrigger.create({
-    //     trigger: ".panel-three",
-    //     start: `top -${offset}px`,
-    //     endTrigger: ".rcd",
-    //     end: "top top",
-    //     pin: ".panel-three .panel__inner",
-    //     pinSpacing: false,
-    //     scrub: 1.5,
-    //     onEnter: () => {
-    //       gsap.to(firstTitle, {
-    //         scale: targetScale,
-    //         transformOrigin: "top center",
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-    //     },
-    //     onLeaveBack: () => {
-    //       gsap.to(firstTitle, {
-    //         scale: 1,
-    //         transformOrigin: "top center",
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-    //     },
-    //     markers: false,
-    //   });
-    // }
-
-    //     if ($(".cmf").length > 0) {
-    //   const firstTitle = document.querySelector(".stick-top");
-    //   let offset =
-    //     window.innerWidth < 992
-    //       ? window.innerHeight * 0.4
-    //       : window.innerHeight * 0.25;
-    //   let targetScale = window.innerWidth < 992 ? 0.5 : 0.25;
-    //   ScrollTrigger.create({
-    //     trigger: ".cmf",
-    //     start: `top -${offset}px`,
-    //     endTrigger: ".df",
-    //     end: "top top",
-    //     pin: ".cmf.panel__inner",
-    //     pinSpacing: false,
-    //     scrub: 1.5,
-
-    //     onEnter: () => {
-    //       const rect = firstTitle.getBoundingClientRect();
-    //       const currentTop = rect.top;
-
-    //       const fixedOffset = window.innerWidth < 992 ? 70 : 70;
-
-    //       gsap.to(firstTitle, {
-    //         y: fixedOffset - currentTop,
-    //         scale: targetScale,
-    //         transformOrigin: "top center",
-    //         opacity: 0.2,
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-    //     },
-
-    //     onLeaveBack: () => {
-    //       gsap.to(firstTitle, {
-    //         y: 0,
-    //         scale: 1,
-    //         opacity: 1,
-    //         transformOrigin: "top center",
-    //         duration: 1.5,
-    //         ease: "expo.out",
-    //       });
-    //     },
-    //   });
-
-    // }
-
     if ($(".cmf").length > 0) {
+      const firstTitle = document.querySelector(".stick-top");
+      const otherTitles = gsap.utils.toArray(
+        ".cmf .text-image-fill:not(.stick-top)"
+      );
 
-  const firstTitle = document.querySelector(".stick-top");
-  const otherTitles = gsap.utils.toArray(".cmf .title-split:not(.stick-top)");
+      let offset =
+        window.innerWidth < 992
+          ? window.innerHeight * 0.4
+          : window.innerHeight * 0.25;
+      let targetScale = window.innerWidth < 992 ? 0.8 : 0.28;
 
-  let offset =
-    window.innerWidth < 992
-      ? window.innerHeight * 0.4
-      : window.innerHeight * 0.25;
-  let targetScale = window.innerWidth < 992 ? 0.5 : 0.25;
+      ScrollTrigger.create({
+        trigger: ".cmf",
+        start: `top -${offset}px`,
+        endTrigger: ".rcd",
+        end: "top top",
+        pin: ".cmf.panel__inner",
+        pinSpacing: false,
+        scrub: 1.5,
 
-  ScrollTrigger.create({
-    trigger: ".cmf",
-    start: `top -${offset}px`,
-    endTrigger: ".rcd",
-    end: "top top",
-    pin: ".cmf.panel__inner",
-    pinSpacing: false,
-    scrub: 1.5,
+        onEnter: () => {
+          const rect = firstTitle.getBoundingClientRect();
+          const currentTop = rect.top;
+          const fixedOffset = window.innerWidth < 992 ? 60 : 70;
 
-    onEnter: () => {
-      const rect = firstTitle.getBoundingClientRect();
-      const currentTop = rect.top;
-      const fixedOffset = window.innerWidth < 992 ? 70 : 70;
+          // Animate stick-top
+          gsap.to(firstTitle, {
+            y: fixedOffset - currentTop,
+            scale: targetScale,
+            transformOrigin: "top center",
+            opacity: 0.2,
+            duration: 1.5,
+            ease: "expo.out",
+          });
 
-      // Animate stick-top
-      gsap.to(firstTitle, {
-        y: fixedOffset - currentTop,
-        scale: targetScale,
-        transformOrigin: "top center",
-        opacity: 0.2,
-        duration: 1.5,
-        ease: "expo.out"
-      });
+          // Fade out other titles
+          gsap.to(otherTitles, {
+            opacity: 0,
+            y: -80,
+            duration: 0.7,
+            ease: "expo.out",
+          });
+        },
 
-      // Fade out other titles
-      gsap.to(otherTitles, {
-        opacity: 0,
-        y: -80,
-        duration: 1.5,
-        ease: "expo.out"
-      });
-    },
+        onLeaveBack: () => {
+          // Reset stick-top
+          gsap.to(firstTitle, {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            transformOrigin: "top center",
+            duration: 1.5,
+            ease: "expo.out",
+          });
 
-    onLeaveBack: () => {
-      // Reset stick-top
-      gsap.to(firstTitle, {
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        transformOrigin: "top center",
-        duration: 1.5,
-        ease: "expo.out"
-      });
-
-      // Reset other titles
-      gsap.to(otherTitles, {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "expo.out"
+          // Reset other titles
+          gsap.to(otherTitles, {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            ease: "expo.out",
+          });
+        },
       });
     }
-  });
-
-}
-
 
     // panel six
+
     if ($(".panel-six").length > 0) {
-      ScrollTrigger.create({
-        trigger: ".panel-six",
-        start: "top center",
-        onEnter: () => gsap.to(".drf", { autoAlpha: 0, duration: 3 }),
-        onLeaveBack: () => gsap.to(".drf", { autoAlpha: 1, duration: 3 }),
+      const $lastPanel = $("#lastPanel");
+      const $drf = $(".drf");
+      let modalOpen = false;
+
+      // Open modal
+      $(".drf img").on("click", function () {
+        if (modalOpen) return;
+
+        modalOpen = true;
+        $drf.addClass("hidden");
+        $lastPanel.addClass("last-panel-active");
+
+        gsap.fromTo(
+          $lastPanel,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6, ease: "power2.out" }
+        );
       });
 
-      const drf = document.querySelector(".drf");
-      const lastPanel = document.querySelector("#lastPanel");
+      // CLOSE MODAL ONLY ON SCROLL (wheel), NOT ON real scrollTop
+      window.addEventListener(
+        "wheel",
+        function (e) {
+          if (!modalOpen) return;
 
-      drf.addEventListener("click", (e) => {
-        e.preventDefault();
+          modalOpen = false;
 
-        gsap.to(window, {
-          scrollTo: lastPanel,
-          duration: 3,
-          ease: "power3.out",
-        });
+          gsap.to($lastPanel, {
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.in",
+            onComplete: () => {
+              $lastPanel.removeClass("last-panel-active");
+              gsap.set($lastPanel, { opacity: 1 });
+              $drf.removeClass("hidden");
+            },
+          });
+        },
+        { passive: true }
+      );
+
+      // OPTIONAL: keep your DRF visible state based on section
+      $(window).on("scroll", function () {
+        // show/hide drf normally, but DO NOT close modal here
+        if (modalOpen) return;
+
+        if (isInLastSection()) {
+          $drf.addClass("hidden");
+        } else {
+          $drf.removeClass("hidden");
+        }
       });
+
+      function isInLastSection() {
+        const winTop = $(window).scrollTop();
+        const lastTop = $lastPanel.offset().top;
+        const lastBottom = lastTop + $lastPanel.outerHeight();
+        return winTop >= lastTop - 50 && winTop < lastBottom - 50;
+      }
     }
 
     // Reset scroll on reload
     $(window).on("beforeunload", function () {
       $(window).scrollTop(0);
     });
-
-    if ($(".title-split").length > 0) {
-      document.fonts.ready.then(() => {
-        const titles = gsap.utils.toArray(".title-split");
-
-        titles.forEach((title) => {
-          const split = new SplitText(title, { type: "chars" });
-
-          gsap.set(split.chars, {
-            opacity: 0,
-            y: 50,
-            scale: 0.9,
-            rotationX: 45,
-            transformOrigin: "0% 100%",
-          });
-
-          gsap.to(split.chars, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotationX: 0,
-            duration: 0.6,
-            ease: "expo.out",
-            stagger: {
-              amount: 0.2,
-              from: "start",
-            },
-            scrollTrigger: {
-              trigger: title,
-              start: "top 90%",
-              toggleActions: "play none none none",
-            },
-          });
-        });
-      });
-    }
   });
-
-  if ($(".shimmer-chars").length > 0) {
-    document.addEventListener("DOMContentLoaded", function () {
-      const el = document.querySelector(".shimmer-chars");
-      const text = el.innerText;
-
-      el.innerHTML = text
-        .split("")
-        .map((char) =>
-          char === " "
-            ? `<span class="char space">&nbsp;</span>`
-            : `<span class="char">${char}</span>`
-        )
-        .join("");
-
-      const chars = el.querySelectorAll(".char");
-
-      let index = 0;
-      const groupSize = 4;
-      const speed = 140;
-      const resetDelay = 0;
-      let resting = false;
-
-      function shimmerStep() {
-        if (resting) return;
-
-        chars.forEach((c) => c.classList.remove("active"));
-
-        for (let i = 0; i < groupSize; i++) {
-          chars[(index + i) % chars.length].classList.add("active");
-        }
-
-        index++;
-
-        if (index >= chars.length) {
-          resting = true;
-
-          setTimeout(() => {
-            index = 0;
-            resting = false;
-          }, resetDelay);
-        }
-      }
-
-      setInterval(shimmerStep, speed);
-    });
-  }
 })(jQuery);
